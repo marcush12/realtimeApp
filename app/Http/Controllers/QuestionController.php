@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Question;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\QuestionResource;
 
 class QuestionController extends Controller
@@ -55,7 +56,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return response('Update', Response::HTTP_ACCEPTED);
     }
 
     /**
