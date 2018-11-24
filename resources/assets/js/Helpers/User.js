@@ -8,19 +8,20 @@ class User {
         .catch(error => console.log(error.response.data))
     }
 
-    responseAfterLogin(res) {
+   responseAfterLogin(res) {
         const access_token = res.data.access_token
         const username = res.data.user
+
         if (Token.isValid(access_token)) {
-            //console.log(access_token)
-            AppStorage.store( username, access_token)
+            AppStorage.store(username, access_token)
+            window.location = '/forum'
         }
     }
 
     hasToken() {
         const storedToken = AppStorage.getToken();
         if (storedToken) {
-            return Token.isValid(storedToken) ? true : false
+            return Token.isValid(storedToken) ? true : this.logout()
         }
         return false
     }
@@ -31,6 +32,7 @@ class User {
 
     logout() {
         AppStorage.clear()
+        window.location = '/forum'
     }
 
     name() {
