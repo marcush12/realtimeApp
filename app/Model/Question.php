@@ -23,6 +23,7 @@ class Question extends Model
     //protected $fillable = ['title', 'slug', 'body', 'category_id', 'user_id'];//error mass assignment; use like below simplest way!
     //protected $guarded = [];//replace above line; ignore mass assignment for all fields
     protected $fillable = ['title', 'slug', 'body', 'user_id', 'category_id'];
+    protected $with = ['replies'];//load relatioship
 
     public function user()
     {
@@ -31,7 +32,7 @@ class Question extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->latest();
     }
 
     public function category()
